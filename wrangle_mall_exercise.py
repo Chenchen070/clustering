@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import env
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
 
 def get_connection(db, username=env.username, host=env.host, password=env.password):
     return f'mysql+pymysql://{username}:{password}@{host}/{db}'
@@ -27,8 +28,8 @@ def get_dummy(df):
     return df
 
 def scale_mall_data(df):
-    mms = sklearn.preprocessing.MinMaxScaler()
+    mms = MinMaxScaler()
     mms.fit(df[['age','annual_income','spending_score']])
     df[['age','annual_income','spending_score']] =\
-    mms.transform(train[['age','annual_income','spending_score']])  
+    mms.transform(df[['age','annual_income','spending_score']])  
     return df
